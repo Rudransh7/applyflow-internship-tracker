@@ -1,3 +1,5 @@
-fastapi>=0.110,<1
-uvicorn>=0.27,<1
-pydantic>=2,<3
+# Direct dependencies pinned after checking official PyPI releases on 2026-10-24.
+# Transitive dependencies are resolved by pip; this is not a full lockfile.
+fastapi==0.162.0
+uvicorn==0.54.0
+pydantic==2.14.1

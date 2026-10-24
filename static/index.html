@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,35 +9,163 @@
   <script type="module" src="/static/app.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to applications</a>
   <div class="shell">
     <aside class="sidebar">
       <a class="brand" href="/"><span class="brand-icon">↗</span><span>apply<span class="brand-accent">flow</span><small>STUDENT EDITION</small></span></a>
       <div class="sidebar-heading">WORKSPACE</div>
-      <div class="nav-item active">◫ <span>Dashboard</span></div>
-      <a class="nav-item" href="/docs" target="_blank">⌘ <span>API documentation</span> ↗</a>
-      <div class="sidebar-bottom"><div class="pulse"></div><span>Local data · stored privately</span></div>
+      <div class="nav-item active">◫ <span>Dashboard</span>
+</div>
+      <a class="nav-item" href="/docs" target="_blank" rel="noopener noreferrer">⌘ <span>API documentation</span> ↗</a>
+      <div class="sidebar-bottom">
+<div class="pulse">
+</div><span>Local only · no account or sync</span>
+</div>
     </aside>
-    <main class="content">
-      <header class="topbar"><span>MY WORKSPACE <span class="chevron">/</span> APPLICATIONS</span><span class="avatar">AF</span></header>
+    <main class="content" id="main">
+      <header class="topbar"><span>MY WORKSPACE <span class="chevron">/</span> APPLICATIONS</span><span class="avatar">AF</span>
+</header>
       <div class="wrap">
         <div class="hero">
-          <div><div class="eyebrow"><span class="tiny-spark">✦</span> YOUR CAREER, ORGANISED</div><h1>Application <em>command centre.</em></h1><p>Every opportunity, every deadline, one clear view.</p></div>
+          <div>
+<div class="eyebrow"><span class="tiny-spark">✦</span> YOUR CAREER, ORGANISED</div>
+<h1>Application <em>command centre.</em></h1>
+<p>Every opportunity, every deadline, one clear view.</p>
+</div>
           <button class="primary" id="open-modal">+ <span>New application</span></button>
         </div>
         <section class="stats" aria-label="Application statistics">
-          <div class="stat"><div class="stat-label">TOTAL APPLICATIONS <span>↗</span></div><strong id="total">0</strong><small>Across every stage</small></div>
-          <div class="stat"><div class="stat-label">IN PROGRESS <span>◎</span></div><strong id="in-progress">0</strong><small>Applied, assessment, interview</small></div>
-          <div class="stat"><div class="stat-label">DUE THIS WEEK <span>◷</span></div><strong id="due-soon">0</strong><small>Upcoming deadlines</small></div>
-          <div class="stat highlight"><div class="stat-label">OFFERS RECEIVED <span>✧</span></div><strong id="offers">0</strong><small>Every milestone counts</small></div>
+          <div class="stat">
+<div class="stat-label">TOTAL APPLICATIONS <span>↗</span>
+</div><strong id="total">0</strong><small>Across every stage</small>
+</div>
+          <div class="stat">
+<div class="stat-label">IN PROGRESS <span>◎</span>
+</div><strong id="in-progress">0</strong><small>Applied, assessment, interview</small>
+</div>
+          <div class="stat">
+<div class="stat-label">DUE IN NEXT 7 DAYS <span>◷</span>
+</div><strong id="due-soon">0</strong><small>Saved applications · includes today</small>
+</div>
+          <div class="stat highlight">
+<div class="stat-label">OFFERS RECEIVED <span>✧</span>
+</div><strong id="offers">0</strong><small>Every milestone counts</small>
+</div>
         </section>
-        <div class="section-title"><div><h2>Application pipeline</h2><p>Track progress from your first application to your next offer.</p></div><a class="export" href="/api/export.csv">↓ Export CSV</a></div>
-        <div class="toolbar"><label class="search"><span>⌕</span><input id="query" placeholder="Search companies, roles, locations…" aria-label="Search applications" /></label><select id="status-filter" aria-label="Filter application status"><option value="">All statuses</option><option>Saved</option><option>Applied</option><option>Assessment</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></div>
-        <div id="message" role="status" aria-live="polite"></div>
-        <div class="table-wrap"><table><thead><tr><th>COMPANY / POSITION</th><th>LOCATION</th><th>DEADLINE</th><th>STATUS</th><th>MANAGE</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">Loading applications…</td></tr></tbody></table></div>
-        <footer><span>APPLYFLOW / BUILT TO HELP YOU BUILD YOUR FUTURE</span><span>FastAPI + SQLite</span></footer>
+        <div id="overdue-banner" class="overdue-banner" hidden><span><strong id="overdue-count">0</strong> saved applications have passed their deadline.</span>
+<button id="show-overdue" class="action">Review overdue</button>
+</div>
+        <div class="section-title">
+<div>
+<h2>Application pipeline</h2>
+<p>Track progress from your first application to your next offer.</p>
+</div>
+<div class="transfer-actions">
+<button id="open-import" class="secondary">Import CSV</button><a class="export" href="/api/export.csv">↓ Export CSV</a>
+</div>
+</div>
+        <div class="toolbar">
+<label class="search"><span>⌕</span>
+<input id="query" maxlength="150" placeholder="Search companies, roles, locations…" aria-label="Search applications" /></label>
+<select id="status-filter" aria-label="Filter application status">
+<option value="">All statuses</option>
+<option>Saved</option>
+<option>Applied</option>
+<option>Assessment</option>
+<option>Interview</option>
+<option>Offer</option>
+<option>Rejected</option></select>
+<select id="deadline-filter" aria-label="Filter deadlines">
+<option value="">All deadlines</option>
+<option value="soon">Due in next 7 days</option>
+<option value="overdue">Overdue saved</option></select>
+</div>
+        <div id="message" role="status" aria-live="polite">
+</div>
+        <section id="results" aria-label="Applications" aria-busy="true">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>COMPANY / POSITION</th>
+<th>LOCATION</th>
+<th>DEADLINE</th>
+<th>STATUS</th>
+<th>MANAGE</th>
+</tr>
+</thead>
+<tbody id="rows">
+<tr>
+<td colspan="5" class="empty">Loading applications…</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pagination"><span id="page-label" role="status">Loading…</span>
+<div>
+<button id="retry" class="action">Refresh</button>
+<button id="previous" class="secondary" disabled>Previous</button>
+<button id="next" class="secondary" disabled>Next</button>
+</div>
+</div>
+</section>
+        <footer><span>Single-user local tracker. Back up your database; no cloud sync.</span><span>FastAPI + SQLite</span>
+</footer>
       </div>
     </main>
   </div>
-  <dialog id="editor"><form id="application-form"><div class="dialog-header"><div><div class="eyebrow">APPLICATION DETAILS</div><h2 id="dialog-title">New application</h2></div><button class="close" value="cancel" formmethod="dialog" type="button" id="close-dialog" aria-label="Close dialog">×</button></div><div class="form-grid"><label>Company <input name="company" required minlength="2" maxlength="120" placeholder="e.g. Bloomberg" /></label><label>Role <input name="role" required minlength="2" maxlength="160" placeholder="Software Engineering Intern" /></label><label>Location <input name="location" maxlength="120" placeholder="London / Remote" /></label><label>Application link <input name="url" type="url" placeholder="https://…" /></label><label>Deadline <input name="deadline" type="date" /></label><label>Status <select name="status"><option>Saved</option><option>Applied</option><option>Assessment</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></label><label class="wide">Notes <textarea name="notes" rows="3" maxlength="2000" placeholder="Requirements, follow-ups, assessment details…"></textarea></label></div><div class="dialog-actions"><button type="button" class="secondary" id="cancel-dialog">Cancel</button><button class="primary" type="submit">Save application →</button></div></form></dialog>
+  <dialog id="editor" aria-labelledby="dialog-title">
+<form id="application-form">
+<div class="dialog-header">
+<div>
+<div class="eyebrow">APPLICATION DETAILS</div>
+<h2 id="dialog-title">New application</h2>
+</div>
+<button class="close" value="cancel" formmethod="dialog" type="button" id="close-dialog" aria-label="Close dialog">×</button>
+</div>
+<div class="form-grid">
+<label>Company <input name="company" required minlength="2" maxlength="120" placeholder="e.g. Bloomberg" /></label>
+<label>Role <input name="role" required minlength="2" maxlength="160" placeholder="Software Engineering Intern" /></label>
+<label>Location <input name="location" maxlength="120" placeholder="London / Remote" /></label>
+<label>Application link <input name="url" type="url" maxlength="2048" placeholder="https://…" /></label>
+<label>Deadline <input name="deadline" type="date" /></label>
+<div class="form-field"><label for="application-status">Status</label><select id="application-status" name="status">
+<option>Saved</option>
+<option>Applied</option>
+<option>Assessment</option>
+<option>Interview</option>
+<option>Offer</option>
+<option>Rejected</option></select></div>
+<label class="wide">Notes <textarea name="notes" rows="3" maxlength="2000" placeholder="Requirements, follow-ups, assessment details…"></textarea></label>
+</div>
+<p id="form-error" class="form-error" role="alert"></p>
+<div class="dialog-actions">
+<button type="button" class="secondary" id="cancel-dialog">Cancel</button>
+<button class="primary" id="save-application" type="submit">Save application →</button>
+</div>
+</form>
+</dialog>
+<dialog id="import-dialog" aria-labelledby="import-title">
+<form id="import-form">
+<div class="dialog-header">
+<div>
+<div class="eyebrow">BRING YOUR EXISTING APPLICATIONS</div>
+<h2 id="import-title">Import a CSV</h2>
+</div>
+</div>
+<div class="import-body">
+<p>Up to 500 rows, UTF-8, 1 MB. Required columns: <code>company,role</code>. Optional: <code>location,url,deadline,status,notes</code>.</p>
+<p>Every row is validated first. If any row is invalid or a company/role pair already exists, nothing is imported.</p>
+<p><a class="export" href="/static/example-applications.csv" download>Download fictional example CSV ↓</a></p>
+<label for="csv-file">CSV file</label>
+<input id="csv-file" type="file" accept=".csv,text/csv" required>
+<p id="import-error" class="form-error" role="alert"></p>
+</div>
+<div class="dialog-actions">
+<button class="secondary" type="button" id="cancel-import">Cancel</button>
+<button class="primary" id="import-submit" type="submit">Validate and import</button>
+</div>
+</form>
+</dialog>
 </body>
 </html>
