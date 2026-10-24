@@ -2,7 +2,11 @@
 
 A local internship application tracker that keeps opportunities, deadlines and application stages in one place. A plain JavaScript dashboard talks to a typed FastAPI API, with SQLite providing durable storage and transactional imports.
 
-**Status:** engineering improvements implemented; 12 database/backup tests verified locally. Full API and Chromium checks are prepared but remain unexecuted in the restricted development environment. See [verification](docs/VERIFICATION.md) before treating this as a finished release.
+**Verified:** 62 API/database tests and 5 subtests passed; GitHub Actions checks Python 3.12/3.13 and real Chromium workflows. Desktop and mobile screenshots were visually reviewed. See the [verification record](docs/VERIFICATION.md) for evidence and remaining limits.
+
+![ApplyFlow desktop dashboard using fictional application records](docs/images/desktop.png)
+
+[Mobile screenshot](docs/images/mobile.png)
 
 ## Why this project exists
 
@@ -56,7 +60,7 @@ python tests/browser_smoke.py
 
 On Linux CI, use `python -m playwright install --with-deps chromium`. The script exercises CRUD, restart persistence, CSV import/export, search, dialog keyboard behaviour and desktop/mobile overflow, and saves screenshots in ignored `browser-artifacts/`.
 
-The workflow runs API checks on Python 3.12/3.13 and a Chromium smoke job. **A workflow file is configured; no successful GitHub run is claimed yet.**
+The workflow runs API checks on Python 3.12/3.13 and a Chromium smoke job. [Verified successful run](https://github.com/Rudransh7/applyflow-internship-tracker/actions/runs/40079241869).
 
 ### Back up and restore
 
