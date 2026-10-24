@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A local-first internship application tracker built with FastAPI and SQLite" />
+  <title>ApplyFlow · Application command centre</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="/"><span class="brand-icon">↗</span><span>apply<span class="brand-accent">flow</span><small>STUDENT EDITION</small></span></a>
+      <div class="sidebar-heading">WORKSPACE</div>
+      <div class="nav-item active">◫ <span>Dashboard</span></div>
+      <a class="nav-item" href="/docs" target="_blank">⌘ <span>API documentation</span> ↗</a>
+      <div class="sidebar-bottom"><div class="pulse"></div><span>Local data · stored privately</span></div>
+    </aside>
+    <main class="content">
+      <header class="topbar"><span>MY WORKSPACE <span class="chevron">/</span> APPLICATIONS</span><span class="avatar">AF</span></header>
+      <div class="wrap">
+        <div class="hero">
+          <div><div class="eyebrow"><span class="tiny-spark">✦</span> YOUR CAREER, ORGANISED</div><h1>Application <em>command centre.</em></h1><p>Every opportunity, every deadline, one clear view.</p></div>
+          <button class="primary" id="open-modal">+ <span>New application</span></button>
+        </div>
+        <section class="stats" aria-label="Application statistics">
+          <div class="stat"><div class="stat-label">TOTAL APPLICATIONS <span>↗</span></div><strong id="total">0</strong><small>Across every stage</small></div>
+          <div class="stat"><div class="stat-label">IN PROGRESS <span>◎</span></div><strong id="in-progress">0</strong><small>Applied, assessment, interview</small></div>
+          <div class="stat"><div class="stat-label">DUE THIS WEEK <span>◷</span></div><strong id="due-soon">0</strong><small>Upcoming deadlines</small></div>
+          <div class="stat highlight"><div class="stat-label">OFFERS RECEIVED <span>✧</span></div><strong id="offers">0</strong><small>Every milestone counts</small></div>
+        </section>
+        <div class="section-title"><div><h2>Application pipeline</h2><p>Track progress from your first application to your next offer.</p></div><a class="export" href="/api/export.csv">↓ Export CSV</a></div>
+        <div class="toolbar"><label class="search"><span>⌕</span><input id="query" placeholder="Search companies, roles, locations…" aria-label="Search applications" /></label><select id="status-filter" aria-label="Filter application status"><option value="">All statuses</option><option>Saved</option><option>Applied</option><option>Assessment</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></div>
+        <div id="message" role="status" aria-live="polite"></div>
+        <div class="table-wrap"><table><thead><tr><th>COMPANY / POSITION</th><th>LOCATION</th><th>DEADLINE</th><th>STATUS</th><th>MANAGE</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">Loading applications…</td></tr></tbody></table></div>
+        <footer><span>APPLYFLOW / BUILT TO HELP YOU BUILD YOUR FUTURE</span><span>FastAPI + SQLite</span></footer>
+      </div>
+    </main>
+  </div>
+  <dialog id="editor"><form id="application-form"><div class="dialog-header"><div><div class="eyebrow">APPLICATION DETAILS</div><h2 id="dialog-title">New application</h2></div><button class="close" value="cancel" formmethod="dialog" type="button" id="close-dialog" aria-label="Close dialog">×</button></div><div class="form-grid"><label>Company <input name="company" required minlength="2" maxlength="120" placeholder="e.g. Bloomberg" /></label><label>Role <input name="role" required minlength="2" maxlength="160" placeholder="Software Engineering Intern" /></label><label>Location <input name="location" maxlength="120" placeholder="London / Remote" /></label><label>Application link <input name="url" type="url" placeholder="https://…" /></label><label>Deadline <input name="deadline" type="date" /></label><label>Status <select name="status"><option>Saved</option><option>Applied</option><option>Assessment</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></label><label class="wide">Notes <textarea name="notes" rows="3" maxlength="2000" placeholder="Requirements, follow-ups, assessment details…"></textarea></label></div><div class="dialog-actions"><button type="button" class="secondary" id="cancel-dialog">Cancel</button><button class="primary" type="submit">Save application →</button></div></form></dialog>
+</body>
+</html>
