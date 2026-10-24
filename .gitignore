@@ -5,3 +5,7 @@ data/
 *.db
 .DS_Store
 .env
+*.db-*
+backups/
+browser-artifacts/
+.venv-browser/

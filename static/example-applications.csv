@@ -1,0 +1,4 @@
+company,role,location,url,deadline,status,notes
+Example Labs,Software Engineering Intern,London,https://example.com/jobs/1,2027-01-15,Saved,Fictional sample — check requirements
+Northstar Demo,Backend Engineering Intern,Leeds,https://example.com/jobs/2,2027-01-25,Applied,Fictional sample — submitted CV
+Atlas Example,Platform Intern,Remote,https://example.com/jobs/3,,Interview,Fictional sample — practise API design
