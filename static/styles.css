@@ -621,6 +621,10 @@ button:disabled {
   max-height:200px;
   overflow:auto
 }
+.form-field {
+  display:grid;
+  gap:8px;
+}
 .import-body {
   padding:0 28px;
   color:#bac8db;

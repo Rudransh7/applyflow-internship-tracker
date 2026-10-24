@@ -129,13 +129,13 @@
 <label>Location <input name="location" maxlength="120" placeholder="London / Remote" /></label>
 <label>Application link <input name="url" type="url" maxlength="2048" placeholder="https://…" /></label>
 <label>Deadline <input name="deadline" type="date" /></label>
-<label>Status <select name="status">
+<div class="form-field"><label for="application-status">Status</label><select id="application-status" name="status">
 <option>Saved</option>
 <option>Applied</option>
 <option>Assessment</option>
 <option>Interview</option>
 <option>Offer</option>
-<option>Rejected</option></select></label>
+<option>Rejected</option></select></div>
 <label class="wide">Notes <textarea name="notes" rows="3" maxlength="2000" placeholder="Requirements, follow-ups, assessment details…"></textarea></label>
 </div>
 <p id="form-error" class="form-error" role="alert"></p>
