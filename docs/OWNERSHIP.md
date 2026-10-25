@@ -2,7 +2,7 @@
 
 ## What existed before this review
 
-The AI-assisted starter contained one Python application module, SQLite CRUD, a dashboard, a company/role uniqueness constraint, CSV export and eight API tests. Its original source is preserved in the first local commit and the task's original archive.
+The original supplied version contained one Python application module, SQLite CRUD, a dashboard, a company/role uniqueness constraint, CSV export and eight API tests. Its original source is preserved in the first local commit and the task's original archive.
 
 This task added the application factory and modules, strict contracts, transactional migration/import, deadline semantics, pagination, backup utility, local-browser protections, revised interface and broader tests. These changes were implemented by an AI coding assistant at the student's request. They must not be presented as independently authored student work. No claim of production use or measured business impact is made.
 
