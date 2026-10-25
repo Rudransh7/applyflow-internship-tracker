@@ -96,6 +96,6 @@ Host checks, same-origin mutation checks, a required custom request header, para
 
 ## Provenance
 
-This repository began as an AI-assisted starter. The original CRUD API, dashboard, uniqueness constraint, CSV export and eight API tests were already present. The subsequent refactor, import/migration/backup features, security hardening and expanded tests were also implemented with AI assistance. [The ownership guide](docs/OWNERSHIP.md) identifies meaningful student exercises and the evidence required before claiming personal contributions.
+The original supplied version already contained the CRUD API, dashboard, uniqueness constraint, CSV export and eight API tests. The subsequent refactor, import/migration/backup features, security hardening and expanded tests were also implemented with AI assistance. [The ownership guide](docs/OWNERSHIP.md) identifies meaningful student exercises and the evidence required before claiming personal contributions.
 
-There are no invented users, performance improvements, employer endorsements or independently authored contribution claims.
+The original source is retained in repository history; dated commits document the subsequent review. An import date is not evidence of when the original code was written. No production usage or measured business impact is claimed.
