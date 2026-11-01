@@ -2,4 +2,4 @@
 # Transitive dependencies are resolved by pip; this is not a full lockfile.
 fastapi==0.162.0
 uvicorn==0.54.0
-pydantic==2.14.1
+pydantic==2.14.2
